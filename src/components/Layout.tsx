@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Calculator, TrendingUp, BookOpen, Home, Menu, X, Languages } from "lucide-react";
+import NepaliDate from "nepali-date-converter";
+import { LayoutDashboard, Calculator, TrendingUp, BookOpen, Home, CalendarDays, Menu, X, Languages } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const navItems = [
@@ -9,11 +10,13 @@ const navItems = [
   { to: "/strategy", key: "strategy" as const, icon: TrendingUp },
   { to: "/accounting", key: "accounting" as const, icon: BookOpen },
   { to: "/rent", key: "rent" as const, icon: Home },
+  { to: "/calendar", key: "calendar" as const, icon: CalendarDays },
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { t, lang, toggleLang } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const todayBsLabel = NepaliDate.now().format("DD MMMM, YYYY", lang === "ne" ? "np" : "en");
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -48,6 +51,14 @@ export default function Layout({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <NavLink
+              to="/calendar"
+              className="hidden items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100 sm:flex"
+              title={t.nav.calendar}
+            >
+              <CalendarDays size={16} className="text-emerald-700" />
+              {todayBsLabel}
+            </NavLink>
             <button
               onClick={toggleLang}
               className="flex items-center gap-1.5 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100"

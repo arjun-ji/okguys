@@ -9,6 +9,7 @@ const en = {
     strategy: "Investment Strategy",
     accounting: "Accounting Ledger",
     rent: "House Rent Tracker",
+    calendar: "Nepali Calendar",
   },
   common: {
     save: "Save",
@@ -195,6 +196,20 @@ const en = {
     totalCollected: "Total Rent Collected",
     outstanding: "Outstanding Dues",
     deleteProperty: "Remove Property",
+  },
+  calendar: {
+    title: "Nepali Calendar",
+    subtitle: "Bikram Sambat (B.S.) calendar with month view, plus an AD ↔ BS date converter for registration and Malpot paperwork.",
+    today: "Today",
+    goToday: "Go to Today",
+    adEquivalent: "A.D. equivalent",
+    adToBs: "Convert A.D. to B.S.",
+    bsToAd: "Convert B.S. to A.D.",
+    adDate: "A.D. Date",
+    bsYear: "B.S. Year",
+    bsMonth: "B.S. Month",
+    bsDay: "B.S. Day",
+    result: "Result",
   },
   footer: {
     text: "Built for Sunil Khadka Real Estate — Kathmandu, Nepal. All data is stored privately on this device.",

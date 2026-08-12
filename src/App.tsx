@@ -7,6 +7,7 @@ import Calculator from "./pages/Calculator";
 import Strategy from "./pages/Strategy";
 import Accounting from "./pages/Accounting";
 import RentTracker from "./pages/RentTracker";
+import NepaliCalendar from "./pages/NepaliCalendar";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
               <Route path="/strategy" element={<Strategy />} />
               <Route path="/accounting" element={<Accounting />} />
               <Route path="/rent" element={<RentTracker />} />
+              <Route path="/calendar" element={<NepaliCalendar />} />
             </Routes>
           </Layout>
         </HashRouter>
