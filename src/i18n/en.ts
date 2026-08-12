@@ -1,7 +1,7 @@
 const en = {
   brand: {
     name: "Sunil Khadka Real Estate",
-    tagline: "Land & Building Advisory, Kathmandu, Nepal",
+    tagline: "Land & Building Advisory, Pokhara, Nepal",
   },
   nav: {
     dashboard: "Dashboard",
@@ -212,7 +212,7 @@ const en = {
     result: "Result",
   },
   footer: {
-    text: "Built for Sunil Khadka Real Estate — Kathmandu, Nepal. All data is stored privately on this device.",
+    text: "Built for Sunil Khadka Real Estate — Pokhara, Nepal. All data is stored privately on this device.",
   },
 };
 
