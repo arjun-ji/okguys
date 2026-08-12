@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { DataProvider } from "./context/DataContext";
 import Layout from "./components/Layout";
@@ -12,7 +12,7 @@ export default function App() {
   return (
     <LanguageProvider>
       <DataProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Layout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -22,7 +22,7 @@ export default function App() {
               <Route path="/rent" element={<RentTracker />} />
             </Routes>
           </Layout>
-        </BrowserRouter>
+        </HashRouter>
       </DataProvider>
     </LanguageProvider>
   );
