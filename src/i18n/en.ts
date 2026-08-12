@@ -48,6 +48,9 @@ const en = {
     recentTransactions: "Recent Transactions",
     incomeVsExpense: "Income vs Expense (Last 6 Months)",
     welcome: "Welcome back",
+    newsTitle: "Kantipur e-Paper",
+    newsSubtitle: "Read today's news and headlines from Nepal's leading daily.",
+    newsButton: "Open Kantipur",
   },
   calculator: {
     title: "Land & Building Price Calculator",

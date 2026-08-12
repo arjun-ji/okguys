@@ -4,7 +4,7 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { useData } from "../context/DataContext";
 import { Card, PageHeader, SectionTitle, StatCard, Badge } from "../components/ui";
 import { formatCurrency } from "../lib/format";
-import { Wallet, TrendingDown, PiggyBank, Home, FileStack, Calculator, BookOpen, ArrowRight } from "lucide-react";
+import { Wallet, TrendingDown, PiggyBank, Home, FileStack, Calculator, BookOpen, ArrowRight, Newspaper, ExternalLink } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import { currentBsMonthKey } from "../lib/bs";
 
@@ -96,24 +96,46 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card>
-          <SectionTitle>{t.dashboard.quickLinks}</SectionTitle>
-          <div className="mt-4 flex flex-col gap-2.5">
-            {quickLinks.map(({ to, label, icon: Icon }) => (
-              <Link
-                key={to}
-                to={to}
-                className="flex items-center justify-between rounded-xl border border-stone-200 px-4 py-3 text-sm font-medium text-stone-700 transition hover:border-emerald-300 hover:bg-emerald-50"
-              >
-                <span className="flex items-center gap-2.5">
-                  <Icon size={16} className="text-emerald-700" />
-                  {label}
-                </span>
-                <ArrowRight size={15} className="text-stone-400" />
-              </Link>
-            ))}
-          </div>
-        </Card>
+        <div className="flex flex-col gap-6">
+          <Card>
+            <SectionTitle>{t.dashboard.quickLinks}</SectionTitle>
+            <div className="mt-4 flex flex-col gap-2.5">
+              {quickLinks.map(({ to, label, icon: Icon }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="flex items-center justify-between rounded-xl border border-stone-200 px-4 py-3 text-sm font-medium text-stone-700 transition hover:border-emerald-300 hover:bg-emerald-50"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <Icon size={16} className="text-emerald-700" />
+                    {label}
+                  </span>
+                  <ArrowRight size={15} className="text-stone-400" />
+                </Link>
+              ))}
+            </div>
+          </Card>
+
+          <Card>
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-rose-700">
+                <Newspaper size={18} />
+              </div>
+              <div className="min-w-0">
+                <SectionTitle>{t.dashboard.newsTitle}</SectionTitle>
+                <p className="mt-1 text-sm text-stone-500">{t.dashboard.newsSubtitle}</p>
+              </div>
+            </div>
+            <a
+              href="https://ekantipur.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-rose-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-800"
+            >
+              {t.dashboard.newsButton} <ExternalLink size={15} />
+            </a>
+          </Card>
+        </div>
       </div>
 
       <Card className="mt-6">

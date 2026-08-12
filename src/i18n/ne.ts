@@ -50,6 +50,9 @@ const ne: Translations = {
     recentTransactions: "हालका कारोबारहरू",
     incomeVsExpense: "आम्दानी बनाम खर्च (पछिल्लो ६ महिना)",
     welcome: "पुनः स्वागत छ",
+    newsTitle: "कान्तिपुर ई-पत्रिका",
+    newsSubtitle: "नेपालको अग्रणी दैनिकबाट आजका समाचार र मुख्य खबरहरू पढ्नुहोस्।",
+    newsButton: "कान्तिपुर खोल्नुहोस्",
   },
   calculator: {
     title: "जग्गा र घर मूल्य क्याल्कुलेटर",
