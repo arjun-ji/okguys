@@ -199,9 +199,11 @@ const en = {
   },
   calendar: {
     title: "Nepali Calendar",
-    subtitle: "Bikram Sambat (B.S.) calendar with month view, plus an AD ↔ BS date converter for registration and Malpot paperwork.",
+    subtitle: "English (A.D.) and Bikram Sambat (B.S.) calendars side by side, plus a date converter for registration and Malpot paperwork.",
     today: "Today",
     goToday: "Go to Today",
+    bsCalendar: "B.S. Calendar (Nepali)",
+    adCalendar: "A.D. Calendar (English)",
     adEquivalent: "A.D. equivalent",
     adToBs: "Convert A.D. to B.S.",
     bsToAd: "Convert B.S. to A.D.",
