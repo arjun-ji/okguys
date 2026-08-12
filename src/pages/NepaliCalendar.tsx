@@ -1,23 +1,9 @@
 import { useMemo, useState } from "react";
-import NepaliDate, { dateConfigMap } from "nepali-date-converter";
+import NepaliDate from "nepali-date-converter";
 import { useLanguage } from "../i18n/LanguageContext";
 import { Card, PageHeader, SectionTitle, Field, Input, Select, Button } from "../components/ui";
 import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
-
-const MONTH_KEYS = [
-  "Baisakh",
-  "Jestha",
-  "Asar",
-  "Shrawan",
-  "Bhadra",
-  "Aswin",
-  "Kartik",
-  "Mangsir",
-  "Poush",
-  "Magh",
-  "Falgun",
-  "Chaitra",
-] as const;
+import { BS_MONTH_KEYS as MONTH_KEYS, BS_AVAILABLE_YEARS as AVAILABLE_YEARS, BS_MIN_YEAR as MIN_YEAR, BS_MAX_YEAR as MAX_YEAR, daysInBsMonth } from "../lib/bs";
 
 const AD_MONTH_NAMES = [
   "January",
@@ -36,16 +22,6 @@ const AD_MONTH_NAMES = [
 
 const WEEKDAYS_EN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const WEEKDAYS_NP = ["आइत", "सोम", "मंगल", "बुध", "बिहि", "शुक्र", "शनि"];
-
-const AVAILABLE_YEARS = Object.keys(dateConfigMap)
-  .map(Number)
-  .sort((a, b) => a - b);
-const MIN_YEAR = AVAILABLE_YEARS[0];
-const MAX_YEAR = AVAILABLE_YEARS[AVAILABLE_YEARS.length - 1];
-
-function daysInBsMonth(year: number, monthIndex: number): number {
-  return dateConfigMap[String(year)]?.[MONTH_KEYS[monthIndex]] ?? 30;
-}
 
 function daysInAdMonth(year: number, monthIndex: number): number {
   return new Date(year, monthIndex + 1, 0).getDate();

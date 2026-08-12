@@ -1,20 +1,20 @@
 import { useMemo, useState } from "react";
+import NepaliDate from "nepali-date-converter";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useData } from "../context/DataContext";
 import { Card, PageHeader, SectionTitle, Field, Input, Select, Button, Badge } from "../components/ui";
 import { formatCurrency } from "../lib/format";
 import type { RentPaymentStatus } from "../lib/types";
 import { Plus, Trash2, BookPlus, CheckCircle2, Wallet, AlertCircle } from "lucide-react";
+import { BS_MONTH_KEYS, BS_AVAILABLE_YEARS, currentBsMonthKey, parseBsMonthKey, bsMonthKey, formatBsMonthLabel } from "../lib/bs";
 
 function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
-function currentMonthKey() {
-  return new Date().toISOString().slice(0, 7);
-}
 
 export default function RentTracker() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const fmtLang = lang === "ne" ? "np" : "en";
   const {
     rentProperties,
     addRentProperty,
@@ -33,10 +33,14 @@ export default function RentTracker() {
   const [dueDay, setDueDay] = useState<number>(5);
 
   const [selectedProperty, setSelectedProperty] = useState<string>("");
-  const [month, setMonth] = useState(currentMonthKey());
+  const [month, setMonth] = useState(currentBsMonthKey());
   const [amountPaid, setAmountPaid] = useState<number>(0);
   const [datePaid, setDatePaid] = useState(todayISO());
   const [status, setStatus] = useState<RentPaymentStatus>("paid");
+
+  const paymentBs = parseBsMonthKey(month) ?? parseBsMonthKey(currentBsMonthKey())!;
+  const setPaymentBsYear = (year: number) => setMonth(bsMonthKey(year, paymentBs.month));
+  const setPaymentBsMonth = (monthIndex: number) => setMonth(bsMonthKey(paymentBs.year, monthIndex));
 
   const handleAddProperty = () => {
     if (!propertyName || !tenantName || !monthlyRent) return;
@@ -69,7 +73,7 @@ export default function RentTracker() {
 
   const totals = useMemo(() => {
     const totalCollected = rentPayments.reduce((s, p) => s + p.amountPaid, 0);
-    const thisMonth = currentMonthKey();
+    const thisMonth = currentBsMonthKey();
     let outstanding = 0;
     for (const prop of rentProperties) {
       const paidThisMonth = rentPayments
@@ -171,7 +175,7 @@ export default function RentTracker() {
 
       <Card className="mt-6">
         <SectionTitle>{t.rent.recordPayment}</SectionTitle>
-        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Field label={t.rent.property}>
             <Select value={selectedProperty} onChange={(e) => setSelectedProperty(e.target.value)}>
               <option value="">-</option>
@@ -182,8 +186,23 @@ export default function RentTracker() {
               ))}
             </Select>
           </Field>
-          <Field label={t.rent.month}>
-            <Input type="month" value={month} onChange={(e) => setMonth(e.target.value)} />
+          <Field label={t.calendar.bsMonth}>
+            <Select value={paymentBs.month} onChange={(e) => setPaymentBsMonth(Number(e.target.value))}>
+              {BS_MONTH_KEYS.map((_, i) => (
+                <option key={i} value={i}>
+                  {new NepaliDate(paymentBs.year, i, 1).format("MMMM", fmtLang)}
+                </option>
+              ))}
+            </Select>
+          </Field>
+          <Field label={t.calendar.bsYear}>
+            <Select value={paymentBs.year} onChange={(e) => setPaymentBsYear(Number(e.target.value))}>
+              {BS_AVAILABLE_YEARS.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </Select>
           </Field>
           <Field label={t.rent.amountPaid}>
             <Input type="number" min={0} value={amountPaid || ""} onChange={(e) => setAmountPaid(Number(e.target.value))} />
@@ -232,7 +251,7 @@ export default function RentTracker() {
                     return (
                       <tr key={p.id} className="border-b border-stone-100 last:border-0">
                         <td className="py-2.5 pr-3 font-medium text-stone-800">{prop?.propertyName ?? "-"}</td>
-                        <td className="py-2.5 pr-3 text-stone-600">{p.month}</td>
+                        <td className="py-2.5 pr-3 text-stone-600">{formatBsMonthLabel(p.month, lang)}</td>
                         <td className="py-2.5 pr-3 font-semibold text-emerald-700">{formatCurrency(p.amountPaid)}</td>
                         <td className="py-2.5 pr-3">
                           <Badge tone={statusTone[p.status]}>
@@ -248,7 +267,7 @@ export default function RentTracker() {
                               </span>
                             ) : (
                               <button
-                                onClick={() => handleAddToLedger(p.id, p.amountPaid, prop?.propertyName ?? "", p.month)}
+                                onClick={() => handleAddToLedger(p.id, p.amountPaid, prop?.propertyName ?? "", formatBsMonthLabel(p.month, lang))}
                                 className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-stone-500 hover:bg-emerald-50 hover:text-emerald-700"
                                 title={t.rent.addToLedger}
                               >

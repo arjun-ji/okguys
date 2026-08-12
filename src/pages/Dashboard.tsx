@@ -6,10 +6,7 @@ import { Card, PageHeader, SectionTitle, StatCard, Badge } from "../components/u
 import { formatCurrency } from "../lib/format";
 import { Wallet, TrendingDown, PiggyBank, Home, FileStack, Calculator, BookOpen, ArrowRight } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
-
-function currentMonthKey() {
-  return new Date().toISOString().slice(0, 7);
-}
+import { currentBsMonthKey } from "../lib/bs";
 
 export default function Dashboard() {
   const { t } = useLanguage();
@@ -22,7 +19,7 @@ export default function Dashboard() {
   }, [transactions]);
 
   const rentStats = useMemo(() => {
-    const thisMonth = currentMonthKey();
+    const thisMonth = currentBsMonthKey();
     let due = 0;
     let collected = 0;
     for (const prop of rentProperties) {
